@@ -1,3 +1,131 @@
+# MusiteDeep-CLI
+
+## Project Modifications
+
+This project is based on the original [MusiteDeep_web](https://github.com/duolinwang/MusiteDeep_web) and adds the following enhancements:
+
+### Key Features Added
+- **Command Line Interface (CLI)**: A user-friendly `musitedeep` command for easy PTM prediction
+- **Simplified Model Selection**: Support for numbers, short names, and special options (e.g., `--models 1,2,3` or `--models py,methyl`)
+- **JSON Output Format**: Structured prediction results with risk assessment
+- **Interactive Model List**: `--list` option to display available PTM models with biological descriptions
+- **Installation Guide**: Added `INSTALL.md` for easy setup instructions
+
+### Important Notes
+⚠️ **Model Data Not Included**: This repository does not contain the pre-trained model files. You need to download them from the original project:
+
+**Download Models**: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
+
+**Installation**: Place the downloaded model folders in the `models/` directory of this project.
+
+### Repository Links
+- **Original Project**: https://github.com/duolinwang/MusiteDeep_web
+- **This Project**: https://github.com/Hunter-Leo/MusiteDeep-CLI.git
+
+## CLI Usage Examples
+
+### View Available Models
+```bash
+musitedeep --list
+```
+```
+Available PTM Models:
+========================================================================================================================
+No.  Short Name      Full Name                      Biological Description                            
+------------------------------------------------------------------------------------------------------------------------
+1    acetyl          N6-acetyllysine                Gene expression regulation, chromatin remodeling  
+2    o-glyc          O-linked_glycosylation         Protein folding, cell adhesion, immune response   
+3    palmitoyl       S-palmitoyl_cysteine           Membrane association, protein trafficking         
+4    hydroxyp        Hydroxyproline                 Collagen stability, extracellular matrix formation
+5    pyrrol          Pyrrolidone_carboxylic_acid    Protein degradation signal, N-terminal processing 
+6    n-glyc          N-linked_glycosylation         Protein folding, quality control, cell recognition
+7    ub              Ubiquitination                 Protein degradation, cell cycle, DNA repair       
+8    sumo            SUMOylation                    Nuclear transport, transcriptional regulation     
+9    py              Phosphotyrosine                Signal transduction, cell growth, differentiation 
+10   methyl          Methyllysine                   Gene expression, chromatin structure regulation   
+11   methylr         Methylarginine                 Gene expression, RNA processing, DNA repair       
+12   hydroxyl        Hydroxylysine                  Collagen cross-linking, connective tissue stability
+13   pst             Phosphoserine_Phosphothreonine Signal transduction, metabolic regulation         
+------------------------------------------------------------------------------------------------------------------------
+
+Special options:
+  phos    - Phosphorylation (py + pst)
+  all     - All models
+
+Usage examples:
+  --models 1,2,3      (use numbers)
+  --models py,methyl  (use short names)
+  --models phos       (phosphorylation)
+```
+
+### Basic Prediction
+```bash
+musitedeep -s "MKTVRQERLKSIVRILERSKEPVSGAQLAEELSVSRQVIVQDIAYLRSLGYNIVATPRGYVLAGG" -m "py,methyl"
+```
+```
+Running prediction for model: Phosphotyrosine
+Running prediction for model: Methyllysine
+
+Prediction Results:
+------------------------------------------------------------
+Position Residue  PTM Type                  Score    Risk  
+------------------------------------------------------------
+2        K        Methyllysine              0.825    HIGH  
+10       K        Methyllysine              0.415    LOW   
+20       K        Methyllysine              0.080    LOW   
+45       Y        Phosphotyrosine           0.180    LOW   
+51       Y        Phosphotyrosine           0.108    LOW   
+60       Y        Phosphotyrosine           0.271    LOW   
+------------------------------------------------------------
+Total predictions: 6
+High risk predictions: 1
+```
+
+### Using Model Numbers
+```bash
+musitedeep -s "PROTEIN_SEQUENCE" -m "9,10"  # Phosphotyrosine + Methyllysine
+```
+
+### Phosphorylation Analysis
+```bash
+musitedeep -s "PROTEIN_SEQUENCE" -m "phos"  # All phosphorylation types
+```
+
+### Save Results to JSON
+```bash
+musitedeep -s "PROTEIN_SEQUENCE" -m "all" -o "results/prediction.json"
+```
+```json
+{
+  "sequence": "MKTVRQERLKSIVRILERSKEPVSGAQLAEELSVSRQVIVQDIAYLRSLGYNIVATPRGYVLAGG",
+  "models_used": ["Phosphotyrosine", "Methyllysine"],
+  "cutoff": 0.5,
+  "predictions": [
+    {
+      "position": 2,
+      "residue": "K",
+      "ptm_type": "Methyllysine",
+      "score": 0.825,
+      "risk": true
+    },
+    {
+      "position": 10,
+      "residue": "K", 
+      "ptm_type": "Methyllysine",
+      "score": 0.415,
+      "risk": false
+    }
+  ]
+}
+```
+
+### Custom Cutoff Threshold
+```bash
+musitedeep -s "PROTEIN_SEQUENCE" -m "py" -c 0.3  # Lower threshold for more sensitive detection
+```
+
+---
+
 # PTM prediction
 
 We provide 13 different models for PTM site predictions and customized model training that enables users to train models by their own data. 
