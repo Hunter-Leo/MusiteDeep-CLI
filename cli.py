@@ -44,6 +44,32 @@ MODEL_ALIASES = {
     'phos': 'Phosphotyrosine,Phosphoserine_Phosphothreonine'
 }
 
+def check_model_data():
+    """Check if model data is available"""
+    models_dir = os.path.join(MUSITEDEEP_DIR, 'models')
+    if not os.path.exists(models_dir):
+        click.echo("❌ Error: Model data not found!", err=True)
+        click.echo("\n📥 Please download model data from the original repository:", err=True)
+        click.echo("   https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models", err=True)
+        click.echo("\n📁 Place all model folders in: {}".format(models_dir), err=True)
+        click.echo("\n💡 See INSTALL.md for detailed instructions.", err=True)
+        sys.exit(1)
+    
+    # Check if at least one model exists
+    model_found = False
+    for model_name in AVAILABLE_MODELS:
+        model_path = os.path.join(models_dir, model_name)
+        if os.path.exists(model_path):
+            model_found = True
+            break
+    
+    if not model_found:
+        click.echo("❌ Error: No valid model data found in models/ directory!", err=True)
+        click.echo("\n📥 Please download model data from:", err=True)
+        click.echo("   https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models", err=True)
+        click.echo("\n📁 Expected models directory: {}".format(models_dir), err=True)
+        sys.exit(1)
+
 def resolve_models(models_input):
     """Resolve model input to actual model names"""
     if models_input.lower() == 'all':
@@ -176,6 +202,9 @@ def merge_results(all_results, protein_name, cutoff):
 @click.option('--list', 'show_list', is_flag=True, help='Show available models and exit')
 def predict(sequence, models, output, cutoff, show_list):
     """MusiteDeep PTM prediction tool"""
+    
+    # Check model data availability first
+    check_model_data()
     
     if show_list:
         click.echo("Available PTM Models:")
