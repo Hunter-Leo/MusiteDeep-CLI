@@ -73,7 +73,7 @@ def check_model_data():
 def resolve_models(models_input):
     """Resolve model input to actual model names"""
     if models_input.lower() == 'all':
-        return AVAILABLE_MODELS
+        return AVAILABLE_MODELS, None
     
     model_list = []
     for item in models_input.split(','):
