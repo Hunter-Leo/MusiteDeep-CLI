@@ -1,4 +1,9 @@
 # MusiteDeep-CLI
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.5+](https://img.shields.io/badge/python-3.5+-blue.svg)](https://www.python.org/downloads/)
+[![GitHub issues](https://img.shields.io/github/issues/Hunter-Leo/MusiteDeep-CLI)](https://github.com/Hunter-Leo/MusiteDeep-CLI/issues)
+[![GitHub stars](https://img.shields.io/github/stars/Hunter-Leo/MusiteDeep-CLI)](https://github.com/Hunter-Leo/MusiteDeep-CLI/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Hunter-Leo/MusiteDeep-CLI)](https://github.com/Hunter-Leo/MusiteDeep-CLI/network)
 
 ## Project Modifications
 
@@ -9,18 +14,7 @@ This project is based on the original [MusiteDeep_web](https://github.com/duolin
 - **Simplified Model Selection**: Support for numbers, short names, and special options (e.g., `--models 1,2,3` or `--models py,methyl`)
 - **JSON Output Format**: Structured prediction results with risk assessment
 - **Interactive Model List**: `--list` option to display available PTM models with biological descriptions
-- **Installation Guide**: Added `INSTALL.md` for easy setup instructions
-
-### Important Notes
-⚠️ **Model Data Not Included**: This repository does not contain the pre-trained model files. You need to download them from the original project:
-
-**Download Models**: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
-
-**Installation**: Place the downloaded model folders in the `models/` directory of this project.
-
-### Repository Links
-- **Original Project**: https://github.com/duolinwang/MusiteDeep_web
-- **This Project**: https://github.com/Hunter-Leo/MusiteDeep-CLI.git
+- **Installation Guide**: Added [INSTALL.md](INSTALL.md) for easy setup instructions
 
 ## CLI Usage Examples
 
@@ -124,7 +118,20 @@ musitedeep -s "PROTEIN_SEQUENCE" -m "all" -o "results/prediction.json"
 musitedeep -s "PROTEIN_SEQUENCE" -m "py" -c 0.3  # Lower threshold for more sensitive detection
 ```
 
+### Important Notes
+⚠️ **Model Data Not Included**: This repository does not contain the pre-trained model files. You need to download them from the original project:
+
+**Download Models**: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
+
+**Installation**: Place the downloaded model folders in the `models/` directory of this project.
+
+### Repository Links
+- **Original Project**: https://github.com/duolinwang/MusiteDeep_web
+- **This Project**: https://github.com/Hunter-Leo/MusiteDeep-CLI.git
+
 ---
+
+# Original MusiteDeep Documentation
 
 # PTM prediction
 
