@@ -8,8 +8,26 @@ wheels/
 
 # Virtual environments
 .venv
+env/
+venv/
 
+# Model files (must be downloaded separately)
 models
 
+# Cache and test data
 .cache
 testdata
+
+# IDE
+.vscode/
+
+# OMC state
+.omc/
+
+# Output directories
+results/
+output/
+
+# OS files
+.DS_Store
+Thumbs.db
