@@ -1,9 +1,9 @@
 # MusiteDeep-CLI
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.5+](https://img.shields.io/badge/python-3.5+-blue.svg)](https://www.python.org/downloads/)
-[![GitHub issues](https://img.shields.io/github/issues/Hunter-Leo/MusiteDeep-CLI)](https://github.com/Hunter-Leo/MusiteDeep-CLI/issues)
-[![GitHub stars](https://img.shields.io/github/stars/Hunter-Leo/MusiteDeep-CLI)](https://github.com/Hunter-Leo/MusiteDeep-CLI/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Hunter-Leo/MusiteDeep-CLI)](https://github.com/Hunter-Leo/MusiteDeep-CLI/network)
+[![GitHub issues](https://img.shields.io/github/issues/Hunter-Leo/MusiteDeep-CLI)](https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep/issues)
+[![GitHub stars](https://img.shields.io/github/stars/Hunter-Leo/MusiteDeep-CLI)](https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep)
+[![GitHub forks](https://img.shields.io/github/forks/Hunter-Leo/MusiteDeep-CLI)](https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep)
 
 ## Project Modifications
 
@@ -121,13 +121,13 @@ musitedeep -s "PROTEIN_SEQUENCE" -m "py" -c 0.3  # Lower threshold for more sens
 ### Important Notes
 ⚠️ **Model Data Not Included**: This repository does not contain the pre-trained model files. You need to download them from the original project:
 
-**Download Models**: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
+**Download Models**: https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep/tree/main/models
 
 **Installation**: Place the downloaded model folders in the `models/` directory of this project.
 
 ### Repository Links
 - **Original Project**: https://github.com/duolinwang/MusiteDeep_web
-- **This Project**: https://github.com/Hunter-Leo/MusiteDeep-CLI.git
+- **This Project**: https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep
 
 ---
 
@@ -154,7 +154,7 @@ You can install the dependent packages by the following commands:
     ```
     Download the stand-alone tool by:
     ```sh
-    git clone https://github.com/duolinwang/MusiteDeep_web
+    git clone https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep
     ```
 ##### Running on GPU or CPU
 >If you want to use GPU, you also need to install [CUDA]( https://developer.nvidia.com/cuda-toolkit) and [cuDNN](https://developer.nvidia.com/cudnn); refer to their websites for instructions. 
