@@ -50,7 +50,7 @@ def check_model_data():
     if not os.path.exists(models_dir):
         click.echo("❌ Error: Model data not found!", err=True)
         click.echo("\n📥 Please download model data from the original repository:", err=True)
-        click.echo("   https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep/tree/main/models", err=True)
+        click.echo("   https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models", err=True)
         click.echo("\n📁 Place all model folders in: {}".format(models_dir), err=True)
         click.echo("\n💡 See INSTALL.md for detailed instructions.", err=True)
         sys.exit(1)
@@ -66,7 +66,7 @@ def check_model_data():
     if not model_found:
         click.echo("❌ Error: No valid model data found in models/ directory!", err=True)
         click.echo("\n📥 Please download model data from:", err=True)
-        click.echo("   https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep/tree/main/models", err=True)
+        click.echo("   https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models", err=True)
         click.echo("\n📁 Expected models directory: {}".format(models_dir), err=True)
         sys.exit(1)
 

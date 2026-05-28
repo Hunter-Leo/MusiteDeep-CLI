@@ -22,8 +22,8 @@ cd MusiteDeep-CLI
 ⚠️ **Important**: This repository does not include model files. Download them first:
 
 ```bash
-# Download models from the repository
-# Visit: https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep/tree/main/models
+# Download models from the original repository
+# Visit: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
 # Place all model folders in the models/ directory of this project
 ```
 

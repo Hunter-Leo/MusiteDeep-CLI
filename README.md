@@ -121,7 +121,7 @@ musitedeep -s "PROTEIN_SEQUENCE" -m "py" -c 0.3  # Lower threshold for more sens
 ### Important Notes
 ⚠️ **Model Data Not Included**: This repository does not contain the pre-trained model files. You need to download them from the original project:
 
-**Download Models**: https://cnb.cool/mirabobio.com/products/protein-studio/ptm-dependencies/MusiteDeep/tree/main/models
+**Download Models**: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
 
 **Installation**: Place the downloaded model folders in the `models/` directory of this project.
 
