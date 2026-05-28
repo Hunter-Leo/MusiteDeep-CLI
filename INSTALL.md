@@ -21,10 +21,19 @@ cd MusiteDeep-CLI
 ### 3. Download Model Data
 ⚠️ **Important**: This repository does not include model files. Download them first:
 
+**Option 1 — Download from the original repository:**
 ```bash
-# Download models from the original repository
 # Visit: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
 # Place all model folders in the models/ directory of this project
+```
+
+**Option 2 — Download from the internal repository (requires COS access permissions):**
+```bash
+# Download model archive (requires appropriate COS access credentials)
+wget https://public-data-1365080922.cos.ap-shanghai.myqcloud.com/public/MusiteDeep_models.tar.gz
+
+# Extract to models/ directory
+tar xzf MusiteDeep_models.tar.gz -C ./
 ```
 
 ## Environment Setup
