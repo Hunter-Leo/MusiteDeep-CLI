@@ -28,6 +28,10 @@ musitedeep -s "SEQUENCE" -m "all" -o results.json
 # Custom cutoff threshold (default 0.5)
 musitedeep -s "SEQUENCE" -m "py" -c 0.3
 
+# Custom model directory
+musitedeep -s "SEQUENCE" -m "all" --model-dir /path/to/models
+musitedeep -s "SEQUENCE" -m "py" -M /path/to/models
+
 # Run prediction directly (no CLI install)
 python3 predict_multi_batch.py -input input.fasta -output output_prefix -model-prefix "models/Phosphotyrosine"
 
@@ -48,13 +52,14 @@ This fork adds a Click-based CLI (`musitedeep` command) with simplified model se
 
 ### CLI Layer (`cli.py`)
 - Entry point: `musitedeep` command via Click
-- `check_model_data()`: Validates that model directories exist before running
+- `check_model_data()`: Validates that model directories exist before running; accepts optional `models_dir` parameter for custom path
 - `resolve_models()`: Maps numeric/short name/group aliases to full model names (supports `phos` → py + pst, `all` → all 13 types)
-- `run_single_model_prediction()`: Writes sequence to temp FASTA, spawns `predict_multi_batch.py` as subprocess per model, parses results
+- `run_single_model_prediction()`: Writes sequence to temp FASTA, spawns `predict_multi_batch.py` as subprocess per model, parses results; accepts optional `model_prefix` parameter for custom path
 - `merge_results()`: Combines multi-model predictions, applies cutoff threshold (default 0.5), sorts by position
 - `parse_results()`: Parses tab-separated MusiteDeep output into structured dicts
 - Always outputs a console table; optionally writes JSON via `-o`
 - Sets `CUDA_VISIBLE_DEVICES=-1` (CPU only)
+- `--model-dir` / `-M` option allows specifying a custom model directory (default: `models/` under project dir)
 
 ### Prediction Pipeline (`predict_multi_batch.py`)
 1. Parses FASTA input and extracts sequence fragments around target residues via `extractFragforMultipredict()`
@@ -119,6 +124,8 @@ This fork adds a Click-based CLI (`musitedeep` command) with simplified model se
 6. CLI parses and merges all results, applies cutoff, outputs table + optional JSON
 7. Cleans up temp files
 
+**Custom model path**: `--model-dir` / `-M` overrides the default `models/` directory, passing the resolved absolute path as `-model-prefix` to `predict_multi_batch.py`.
+
 ## 13 Supported PTM Types
 
 | # | Short Name | Full Name | Residues | Biological Description |
@@ -170,9 +177,10 @@ models/<PTM type>/
 ## Important Notes
 
 - **No test suite** exists. Verify changes by running `musitedeep` predictions and checking output correctness.
-- **Model files are not in this repo**. Download from the original project and place in `models/` directory.
+- **Model files are not in this repo**. Download from the original project and place in `models/` directory or use `--model-dir`.
 - **Keras 2.2.4 + TensorFlow 1.12.0** are required (not compatible with TF2.x). Use a conda environment with Python 3.5.
 - During training, `CUDA_VISIBLE_DEVICES` is set in training scripts with `per_process_gpu_memory_fraction=0.3` for CNN and `0.5` for CapsNet.
 - The CLI sets `CUDA_VISIBLE_DEVICES=-1` to force CPU-only mode for prediction.
 - The `testdata/` directory contains training/validation FASTA files for all PTM types (see original repo).
 - Default prediction cutoff is 0.5; adjust with `-c` for more sensitive or specific detection.
+- Custom model path via `--model-dir` / `-M` defaults to `<project_dir>/models/` when omitted.

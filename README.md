@@ -14,6 +14,7 @@ This project is based on the original [MusiteDeep_web](https://github.com/duolin
 - **Simplified Model Selection**: Support for numbers, short names, and special options (e.g., `--models 1,2,3` or `--models py,methyl`)
 - **JSON Output Format**: Structured prediction results with risk assessment
 - **Interactive Model List**: `--list` option to display available PTM models with biological descriptions
+- **Custom Model Path**: `--model-dir` / `-M` option to specify model files in non-default locations
 - **Installation Guide**: Added [INSTALL.md](INSTALL.md) for easy setup instructions
 
 ## CLI Usage Examples
@@ -118,12 +119,19 @@ musitedeep -s "PROTEIN_SEQUENCE" -m "all" -o "results/prediction.json"
 musitedeep -s "PROTEIN_SEQUENCE" -m "py" -c 0.3  # Lower threshold for more sensitive detection
 ```
 
+### Custom Model Path
+```bash
+# Use model files from a non-default location
+musitedeep -s "PROTEIN_SEQUENCE" -m "py" --model-dir /data/models/musitedeep
+musitedeep -s "PROTEIN_SEQUENCE" -m "all" -M /data/models/musitedeep
+```
+
 ### Important Notes
 ⚠️ **Model Data Not Included**: This repository does not contain the pre-trained model files. You need to download them from the original project:
 
 **Download Models**: https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models
 
-**Installation**: Place the downloaded model folders in the `models/` directory of this project.
+**Installation**: Place the downloaded model folders in the `models/` directory of this project, or use the `--model-dir` / `-M` option to specify a custom path.
 
 ### Repository Links
 - **Original Project**: https://github.com/duolinwang/MusiteDeep_web
