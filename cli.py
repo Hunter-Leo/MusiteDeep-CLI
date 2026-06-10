@@ -44,9 +44,10 @@ MODEL_ALIASES = {
     'phos': 'Phosphotyrosine,Phosphoserine_Phosphothreonine'
 }
 
-def check_model_data():
+def check_model_data(models_dir=None):
     """Check if model data is available"""
-    models_dir = os.path.join(MUSITEDEEP_DIR, 'models')
+    if models_dir is None:
+        models_dir = os.path.join(MUSITEDEEP_DIR, 'models')
     if not os.path.exists(models_dir):
         click.echo("❌ Error: Model data not found!", err=True)
         click.echo("\n📥 Please download model data from the original repository:", err=True)
@@ -64,7 +65,7 @@ def check_model_data():
             break
 
     if not model_found:
-        click.echo("❌ Error: No valid model data found in models/ directory!", err=True)
+        click.echo("❌ Error: No valid model data found in {}!".format(models_dir), err=True)
         click.echo("\n📥 Please download model data from:", err=True)
         click.echo("   https://github.com/duolinwang/MusiteDeep_web/tree/master/MusiteDeep/models", err=True)
         click.echo("\n📁 Expected models directory: {}".format(models_dir), err=True)
@@ -142,17 +143,20 @@ def parse_results(results_file):
     
     return results
 
-def run_single_model_prediction(temp_fasta_path, model_name, temp_dir):
+def run_single_model_prediction(temp_fasta_path, model_name, temp_dir, model_prefix=None):
     """Run prediction for a single model"""
     temp_output_prefix = os.path.join(temp_dir, 'musitedeep_output_{}'.format(model_name))
-    
+
+    if model_prefix is None:
+        model_prefix = os.path.join(MUSITEDEEP_DIR, 'models', model_name)
+
     # Run MusiteDeep prediction for single model
     cmd = [
-        sys.executable, 
+        sys.executable,
         os.path.join(MUSITEDEEP_DIR, 'predict_multi_batch.py'),
         '-input', temp_fasta_path,
         '-output', temp_output_prefix,
-        '-model-prefix', "models/{}".format(model_name)
+        '-model-prefix', model_prefix
     ]
     
     # Change to MusiteDeep directory to ensure relative paths work
@@ -199,12 +203,13 @@ def merge_results(all_results, protein_name, cutoff):
 @click.option('--models', '-m', default='all', help='PTM models to use (numbers, short names, or "all")')
 @click.option('--output', '-o', help='Output JSON file path')
 @click.option('--cutoff', '-c', default=0.5, type=float, help='Score cutoff for significant predictions')
+@click.option('--model-dir', '-M', default=None, help='Custom model directory path (default: models/ under MusiteDeep directory)')
 @click.option('--list', 'show_list', is_flag=True, help='Show available models and exit')
-def predict(sequence, models, output, cutoff, show_list):
+def predict(sequence, models, output, cutoff, model_dir, show_list):
     """MusiteDeep PTM prediction tool"""
     
     # Check model data availability first
-    check_model_data()
+    check_model_data(model_dir)
     
     if show_list:
         click.echo("Available PTM Models:")
@@ -278,7 +283,8 @@ def predict(sequence, models, output, cutoff, show_list):
         # Run prediction for each model individually
         for model_name in model_list:
             click.echo("Running prediction for model: {}".format(model_name))
-            model_results = run_single_model_prediction(temp_fasta_path, model_name, temp_dir)
+            model_prefix = os.path.join(model_dir, model_name) if model_dir else None
+            model_results = run_single_model_prediction(temp_fasta_path, model_name, temp_dir, model_prefix)
             if model_results:
                 all_results.append(model_results)
         
